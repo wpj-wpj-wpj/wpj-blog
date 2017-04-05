@@ -1,0 +1,31 @@
+回复，汇报页面的参数：p_Id  即消息id。  回复页面需要p_PageFrom(1.来自轮播，0.来自详情)
+两个详情页面的参数:
+	0.p_PageFrom=0(来自列表页，只显示右侧详情)  p_Sr='S'/p_Sr='R';('S'当前登录人是发送人；'R'当前登录人是接收人；)  p_Id(消息id)
+	1.p_PageFrom=1(来自轮播图，全显示)				
+	
+	
+	
+	$(window.opener.document.body).find('#hidespan').css("display","block");
+	
+	
+	 $("input[name='someBox']").click(function(){});
+	 
+	 单据状态：0.已删除   1.草稿  2.评审中 3.驳回  4.审批中  5.审批通过  4028476254ec94b30154f10a2ca910cc
+
+
+0普通人 1审批人 2批准人（ReceiverType）	 
+0已读 1未读 2已处理（接受表的MsgStatus） 
+
+$('table tr').length
+
+wangpj  4028476255c2e62b0155c32baf0f0198
+
+if(group.pid==pid) 对
+if(group.pid=="'+pid+'")错
+
+包干方式
+合同付款方式（这两项暂时不要，表里字段保留）
+
+从数据库获取数据 Edit  Delete字段不能出现！
+
+实体状态设置可以加过滤条件！

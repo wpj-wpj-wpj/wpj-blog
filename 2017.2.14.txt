@@ -1,0 +1,74 @@
+项目执行准备看板，优先级最低， 先看原本的设计，理解原来的实现
+
+上传图片
+	1.上传到哪里
+	2.接口执行什么操作
+	3.怎么用（加载）已上传图片。
+二维码
+	怎么用layerui实现
+	
+	
+2.16周四
+看预算管理
+	管理的是“文件”。
+	按照文件来源不同分为3个页签。
+	
+！！发现  量价项关联 页面 YsLoad 中orgin 局限于 =0 而不是 ！=4 ！=5.
+
+	上传文件页面，在项目维度下上传文件。
+	量价项关联页面，在上传的文件基础上 挑选文件跟 量价项关联。
+	
+！！列表图片列
+	值是路径 eg Resources\img\icon\u388.png
+	
+"银弹"：最优尝试，模范。
+
+Asynchronous 异步
+AMD ~Asynchronous Module Definition  异步模块定义
+
+var localhost = getRootPath_web();
+var getRootPath_web = function () {
+		//获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+		var pathName = window.document.location.pathname;
+		//获取带"/"的项目名，如：/uimcardprj
+		var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+		return projectName;
+	};
+
+var p_PersonId=VariableManage.GetPageVariant("p_PersonId");
+
+2.17周五
+~~~~
+	js中 area 改
+	静态页面改
+	复合
+	
+	
+1.点左
+	全勾掉
+	pid=id的 勾上
+2.点右//
+		pid=。active的id//
+		勾掉的话
+			removeData()//
+3.添加左//
+	uuid 加id//
+4.加载右
+	加pid
+	
+	点右//
+		array=data（pid）
+		勾掉的话
+			array遍历，
+			删除值=。active的id 的项
+			付给data，attr
+		else
+			添加 当前id
+			付给data，attr
+			
+看板
+	四个
+		已有
+		类似
+		无
+		已有

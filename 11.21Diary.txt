@@ -1,0 +1,134 @@
+低级错误：if(p_Id="")
+input 加name
+select 加name  option 加value
+
+checkedbox 如果写name 的话，要么是on 要么没有这一项。
+
+input 加圆角则出现浮雕效果，这时候，只要加边框就可扁平化，颜色要跟背景色一致。
+
+
+
+
+$('div[pid="'+pid+'"]')
+
+clockTime.substr(0,10)
+(start,length)
+
+单选框/复选框/下拉 选中checked
+下拉  选中 selected
+
+本周一 日期字符串
+var nowDate=new Date();
+var weekday=nowDate.getDay();
+	var monday=new Date(1000*60*60*24*(1-weekday) + nowDate.getTime());
+	var mondayStr=monday.toLocaleString( ).substr(0,10).replace(/\//g,'-');
+	
+用is(":hidden");来判断是否隐藏；
+
+jquery获取当前选中的单选框 用:checked 不用[checked] 后者只能获取默认选中项
+
+Ctrl+G 跳转行
+
+
+		
+learn路线
+	正则
+	首页代码
+	jquery日期相关
+	
+for(var i=0;i<dcs.length;i++;)
+最后边不该加冒号
+…	
+
+
+	
+营销优化
+	商机//
+		生效//
+		更新//
+	营销
+		单独入口
+		审批后才能做
+		信息补充
+		相关人员
+		营销推进档案全局化//
+		
+1.半编码，后台，获取数据并回发不可查sql。
+2.后端逻辑出现未知错误就重启tomcat
+2當天 datediff(day,日期,getdate())=0
+當週 day改為week
+當月 day改為month
+本季 day改为quarter
+當年 day改為year
+
+
+	
+	
+点赞：
+	1.分供商评价移植
+	2.相关人员通用组件（页面要传单据名称）
+		列表（查询经办，编制，审批人）
+	3.评价--已评价
+		总分（加权平均）
+	4.提醒弹窗
+	
+
+	
+zhiyu说的右侧看板 做成类似页签模式  pid="abc def"  选择器用[pid~='']
+	
+	
+	
+$projectInfo=$('.projectInfo>.contents>div>div');
+for(var i=0;i<$projectInfo.length;i++){
+	$infoName=$projectInfo.eq(i).attr("name");
+	if($infoName!=""){
+		console.log("name:"+$infoName);
+		console.log("value:"+eval("projectInfo[0]."+$infoName));
+		var infoValue=eval("projectInfo[0]."+$infoName);
+		$projectInfo.eq(i).text(infoValue).attr('title',infoValue);
+	}
+}
+
+	
+审批最后再合并 1，group 2，sum（）
+
+sql，逻辑
+
+	
+Keep first,效率次要
+
+	
+	
+相关人员页面要赋值
+	billid，uid//
+	evapersonid---直接用系统变量
+sql查是否已评价
+改按钮
+
+
+'mblx':'PageControlProperty'批量赋值要在代码编辑器中改‘mblx’属性
+表达式运算中同样不能用手写的代替选择的
+
+1.打开
+	正常
+	符合设计要求 
+2.回调
+
+
+
+!!!
+父类委托，比之前动态绑定好多了。
+委托之后再也不用管，不论是ajax生成的，还是js改变了class（删除后又添回来）
+
+发现点击之后触发打开窗体后，再改class，改变不了背景色了。
+结论：按钮的样式转换最好别用toggle（）或removeClass()或addClass();尤其是有移入移出的按钮（估计是因为打开窗体阻塞）
+曲线救国：隐藏原有的按钮，显示另一个样式的按钮。
+
+基干回调半编码 
+returnData(data)
+
+	var p_Bid='<%=request.getParameter("bid")%>'
+			
+	var p_Uid='<%=request.getParameter("wid")%>'
+	
+	一定要外单内双

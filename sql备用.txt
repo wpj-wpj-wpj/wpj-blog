@@ -1,0 +1,113 @@
+id--40284762593deb2701593fb949093f16 
+orgid--E7B2FE41B55947B486407A745F0F5611
+companyid--E7B2FE41B55947B486407A745F0F5611
+---以上 孙大宇
+
+--收入合同金额
+isnull((select sum(AccountWithTax) from Con_SrContract where ProjectId=Pro_Project.id and BillStatus>=5),0) as srhtje,
+--累计已收款金额
+isnull((select sum(PaidPriceTotal) from vProceedsBillMain where ProjectId=Pro_Project.id and BillStatus>=5),0) as ljyskje,
+--应收金额
+isnull((select sum(ApplyAmount)/10000 from vProApplyMain where BillStatus>=5 AND ProjectId=Pro_Project.id AND ApplyDate<=GETDATE()),0) as ysje,
+--总结算金额
+isnull((select SUM(FinallyJsMoney) as SettAmount from(
+select ProjectId,FinallyJsMoney from ICM_ZzMaterailsLeaseJs 
+where IsYjs=0 and BillStatus>=5 
+union all
+select ProjectId,FinallyJsMoney from IAO_DeviceLeaseJs 
+where IsYjs=0 and BillStatus>=5 
+union all
+select ProjectId,FinallyJsMoney from IAO_FB_jsd
+where IsYjs=0 and BillStatus>=5 
+union all
+select ProjectId,FinalSettlAmt from MatSettlementBill
+where BillState>=5 
+union all
+select ProjectId,FinalSettAmount from ICM_QTContractJSMain 
+where BillStatus>=5 
+union all
+select ProjectId,FinalAmount from ICM_CostSettlementMain
+where BillStatus>=5 
+) a  where a.ProjectId=Pro_Project.id),0) as ZJSJE,
+--合同最新金额
+isnull((select AmountInvolved/10000 from ChangeVisaMain where  OccurrenceTime<=getdate() 
+and ProjectId=Pro_Project.id and BillStatus>=5 and OccurrenceTime=(select MAX(OccurrenceTime) 
+from ChangeVisaMain where OccurrenceTime<=getdate() and ProjectId=Pro_Project.id and BillStatus>=5)),0) ConNewAmount
+
+
+
+
+
+
+select a.* 
+,Pro_Project.companyid as fgsid,sm_obs.Name AS fgs
+,XmYf.SupplieName 
+,Pro_Project.Xm_ProName
+,--合同状态
+isnull((select top 1 ConStatus from Con_Status where Con_Status.ConId=a.conid
+order by Con_Status.UpdateTime desc, Con_Status.WriteDate desc),0) ConStatus
+from
+(select ConYf SupplieId,ProjectId
+,id conid
+, ConName
+,ConQdTime SignDate
+,ConHsje AccountWithTax
+,--累计结算金额
+isnull((select sum(FinalSettlAmt) from MatSettlementBill where BillState >= 5 
+ and ContractId=Con_MaterialPurchase.id),0) JSJE
+,'1' ConType
+,ConQdTime EffectDate
+from Con_MaterialPurchase where Status >=5
+union all
+select ConYFid SupplieId,ProjectId
+,id conid
+, ConName
+,ConQdTime SignDate
+,ConHsMoney AccountWithTax
+ ,--累计结算金额
+ (select isnull(sum(FinallyJsMoney),0) from ICM_ZzMaterailsLeaseJs 
+where IsYjs=0 and BillStatus>=5 and ConId=Con_TurnoverMat.id) JSJE
+,'2' ConType
+,ConQdTime EffectDate
+from Con_TurnoverMat where BillStatus>=5
+union all
+select ConYFid SupplieId,ProjectId
+,id conid
+, ConName
+,ConQdTime SignDate
+,ConHsMoney AccountWithTax
+,--累计结算金额
+(select isnull(sum(FinallyJsMoney),0) from IAO_DeviceLeaseJs 
+where IsYjs=0 and BillStatus>=5 and ConId=Con_TurnoverDev.id) JSJE
+,'3' ConType
+,ConQdTime EffectDate 
+from  Con_TurnoverDev where BillStatus>=5
+union all
+
+select ConYFid SupplieId,ProjectId
+,id conid
+, ConName
+,SignDate
+,AccountWithTax
+,--累计结算金额
+isnull((select sum(FinallyJsMoney) from IAO_FB_jsd 
+where BillStatus >= 5 and IsYjs =0 and conid=Con_FbContract.id),0) JSJE
+,'4' ConType
+,EffectDate
+from Con_FbContract where BillStatus >=5
+union all
+select OppositeUnitId SupplieId,ProjectId
+,id conid
+, ConName
+,SignDate
+,ConAmountTax AccountWithTax
+,--累计结算金额
+ (select isnull(sum(FinalSettAmount),0) from ICM_QTContractJSMain 
+where  BillStatus>=5 and ConId=Con_QtContract.id) JSJE
+,'5' ConType
+,EffectiveDate EffectDate
+from  Con_QtContract where BillStatus >=5) a
+LEFT JOIN Pro_Project ON a.ProjectId = Pro_Project.id 
+LEFT JOIN sm_obs ON sm_obs.id = Pro_Project.Companyid
+LEFT JOIN BAS_SupplieFN XmYf ON a.SupplieId = XmYf.id
+
