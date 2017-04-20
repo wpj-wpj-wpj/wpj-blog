@@ -1,0 +1,9 @@
+create proc spApprovalRecever
+@LinkId varchar(255),
+@UserId varchar(255),
+@personId varchar(255) output
+as
+begin
+select @personId=isnull(@personId+',','')+userName from vApprovalPerson where LinkId=@LinkId
+and PersonId not in (select SenderId from ApprovalRecord where LinkId=@LinkId) and PersonId !=@UserId
+end
